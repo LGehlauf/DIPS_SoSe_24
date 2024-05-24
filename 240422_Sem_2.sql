@@ -1,4 +1,4 @@
--- Seminar vom 22.04.2024
+-- 2.Seminar, 22.04.2024
 
 select * from g 
 union
@@ -57,17 +57,25 @@ k
 on b.knr = k.knr
 
 --2.1.2
-select b.knr, g.bezeichnung as galerie, g.sitz from b,g
-
-
-select * from m
-
+select k.name, g.bezeichnung as galerie, g.sitz from g
+join b on b.enr = g.enr
+join k on k.knr = b.knr
+where b.wert > 200 and k.tod isnull
 
 --2.1.3
-select b.bnr, b.titel from b
-where bnr = 'B1' or b.jahr > 1
+select L.bnr, L.titel from b L, b R
+where L.jahr = R.jahr and L.bnr = 'B1'
+
+--2.1.4
+select bR.enr, g.bezeichnung, g.sitz, k.name from b bL, b bR
+join k on bR.knr = k.knr
+join g on g.enr = bR.enr
+--where g.bezeichnung = 'Galerie Villon' or bL.titel = bR.titel
 
 
+select b.enr, gL.bezeichnung, gL.sitz, k.name from g gL, g gR
+join b on b.enr = gR.enr
+join k on b.knr = k.knr
 
 --2.1.4
 select g.enr, g.bezeichnung, g.sitz, k.name as maler from g
@@ -76,3 +84,16 @@ on g.bezeichnung = 'Galerie Villon'
 join b
 on b.bnr = 'E6'
 
+
+--2.1.4
+select distinct u.*, k.name, bild1.titel
+from g u, g v, k, b bild1
+where u.bezeichnung = 'Galerie Villon'
+
+select * from b
+where enr='E6'
+
+select * from k where knr = 'K2' or knr = 'K5'
+
+
+--....
